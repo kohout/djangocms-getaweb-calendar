@@ -1,0 +1,38 @@
+{% load sekizai_tags %}
+<div class="djangocms-calendar">
+</div>
+{% addtoblock "js" %}
+<script type="text/javascript"
+        src="{{ STATIC_URL }}fullcalendar/fullcalendar.min.js"></script>
+<script type="text/javascript">
+(function($) {
+  $(document).ready(function() {
+    $('.djangocms-calendar').fullCalendar({
+      events: "{% url 'event-list' %}",
+      eventClick: function(event) {
+        if (event.url) {
+          $.ajax({
+            url: event.url,
+            type: 'GET',
+            success: function(obj, state, jqxhr) {
+              var _html = obj.description + '<br><hr><br>';
+              _html += obj.complete_datetime;
+              $(_html).dialog({
+                title: obj.title,
+                modal: true
+              });
+              alert(response);
+            }
+          });
+          return false;
+        }
+      }
+    });
+  });
+})(jQuery);
+</script>
+{% endaddtoblock %}
+{% addtoblock "css" %}
+<link href="{{ STATIC_URL }}fullcalendar/fullcalendar.css" rel="stylesheet"
+      type="text/css" />
+{% endaddtoblock %}

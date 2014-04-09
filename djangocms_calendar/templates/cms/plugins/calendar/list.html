@@ -1,0 +1,37 @@
+{% load i18n %}{% if events %}
+<section class="feature-boxes medium-col-space left-icon-box small-icon">
+  <div class="row">
+    <div class="width-two-thirds align-left">
+      {% for event in events %}
+        <article>
+          <span style="background: #{{ event.category.color }};">
+            <i class="fa fa-calendar"></i>
+          </span>
+          <div>
+            <h5>{{ event.complete_datetime }} | {{ event.title }}</h5>
+            {% if event.description %}<p>{{ event.description }}</p>{% endif %}
+            <br>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+    <div class="width-one-third align-right">
+      <h4>{% trans "Legende" %}:</h4>
+      {% for category in categories %}
+        <article>
+          <span style="background: #{{ category.color }};">
+            <i class="fa fa-calendar"></i>
+          </span>
+          <div>
+            <h5 style="display: block; padding-top: 6px;">{{ category.name }}</h5>
+          </div>
+          <div class="clear"></div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<hr class="divider-pattern streaks offset-right-10px mb-30px">
+{% else %}
+  {% include "cms/plugins/calendar/no_results.html" %}
+{% endif %}

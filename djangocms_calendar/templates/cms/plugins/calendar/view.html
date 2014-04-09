@@ -1,0 +1,26 @@
+{% load i18n %}
+<h2>{{ instance.title }}</h2>
+{% if instance.view_mode == 'LIST_AND_CALENDAR' %}
+<ul class="tabs-nav bordered clearfix">
+  <li class="active">
+    <a href="#event-calendar-view">{% trans "Calendar" %}</a>
+  </li>
+  <li>
+    <a href="#event-list-view">{% trans "List View" %}</a>
+  </li>
+</ul>
+<div class="tabs-container bordered">
+  <div id="event-calendar-view" class="tab-content">
+    {% include "cms/plugins/calendar/month.html" %}
+  </div>
+  <div id="event-list-view" class="tab-content">
+    {% include "cms/plugins/calendar/list.html" %}
+  </div>
+</div>
+{% endif %}
+{% if instance.view_mode == 'LIST' or instance.view_mode == 'TEASER' %}
+  {% include "cms/plugins/calendar/list.html" %}
+{% endif %}
+{% if instance.view_mode == 'CALENDAR' %}
+  {% include "cms/plugins/calendar/month.html" %}
+{% endif %}
